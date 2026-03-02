@@ -22,7 +22,7 @@ def main():
         )
 
         gerar_csv(registros, args.output_file)
-        print(f"CSV gerado: {args.output_file}")
+        print(f"CSV gerado com sucesso: {args.output_file}")
     except Exception as e: 
         print(f"Erro: {e}")
         exit(1)
