@@ -1,0 +1,9 @@
+name: CI & Release - dev
+run-name: ${{ github.actor }}
+on:
+  push:
+    branches:
+      - dev
+      - main
+    tags:
+      - 'v*'
