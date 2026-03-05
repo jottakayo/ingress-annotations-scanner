@@ -20,7 +20,6 @@ def main():
             dados,
             prefix=args.annotation_prefix
         )
-
         gerar_csv(registros, args.output_file)
         print(f"CSV gerado: {args.output_file}")
     except Exception as e: 
