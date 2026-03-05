@@ -39,18 +39,18 @@ Ao final, o processamento é convertido em um arquivo CSV.
 
 ---
 
-## Clonar o repositório
+### Baixar o binário
 
-Faça o clone do projeto:
+A forma recomendada de uso é através do **binário já compilado**, disponível nas Releases do projeto.
+
+Acesse:
+
+https://github.com/jottakayo/ingress-annotations-scanner/releases
+
+Baixe o binário e após baixar, conceda permissão de execução:
 
 ```bash
-git clone git@github.com:jottakayo/ingress-annotations-scanner.git
-```
-
-Entre na pasta do projeto:
-
-```bash
-cd ingress-annotations-scanner
+chmod +x ingress-annotations-scanner-*
 ```
 
 ---
@@ -98,28 +98,18 @@ Se esse comando funcionar, o script também funcionará.
 
 ---
 
-## Permitir execução do script
-
-Caso precise, conceda permissão de execução:
-
-```bash
-chmod +x main.py
-```
-
----
-
 ## Visualizar opções disponíveis
 
 A ferramenta possui argumentos configuráveis. Para visualizar todas as opções:
 
 ```bash
-python3 main.py -h
+./ingress-annotations-scanner-* -h
 ```
 
 ou
 
 ```bash
-python3 main.py --help
+./ingress-annotations-scanner-* --help
 ```
 
 Exibe todos os argumentos suportados.
@@ -133,7 +123,7 @@ Exibe todos os argumentos suportados.
 Use o argumento `--namespaces` seguido da lista desejada:
 
 ```bash
-python3 main.py --namespaces ns1 ns2 ns3
+./ingress-annotations-scanner-* --namespaces ns1 ns2 ns3
 ```
 
 ---
@@ -143,7 +133,7 @@ python3 main.py --namespaces ns1 ns2 ns3
 Use o argumento `--all`:
 
 ```bash
-python3 main.py --all
+./ingress-annotations-scanner-* --all
 ```
 ---
 
@@ -152,7 +142,7 @@ python3 main.py --all
 Use o argumento `--annotation-prefix`:
 
 ```bash
-python3 main.py --annotation-prefix nginx
+./ingress-annotations-scanner-* --annotation-prefix nginx
 ```
 
 ---
