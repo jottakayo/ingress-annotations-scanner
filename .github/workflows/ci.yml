@@ -1,5 +1,4 @@
-name: CI & Release - dev
-run-name: ${{ github.actor }}
+name: CI & Release
 on:
   push:
     branches:
