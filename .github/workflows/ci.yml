@@ -1,0 +1,50 @@
+name: CI & Release
+on:
+  push:
+    branches:
+      - dev
+      - main
+    tags:
+      - 'v*'
+jobs:
+  build:
+    name: Build (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+    steps:
+      - name: Checkout código
+        uses: actions/checkout@v6
+      - name: Setup Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.14.3'
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+      - name: Gerar binário
+        run: |
+          pyinstaller -F main.py
+      - name: Definir nome do binário
+        run: |
+          VERSION=${{ github.ref_name }}
+          OS_NAME=${{ runner.os }}
+          if [ "$OS_NAME" = "Linux" ]; then
+            mv dist/main dist/ingress-annotations-scanner-$VERSION-linux
+          else
+            mv dist/main dist/ingress-annotations-scanner-$VERSION-macos
+          fi
+      - name: Upload artefato
+        uses: actions/upload-artifact@v4
+        with:
+          name: ingress-annotations-scanner-${{ github.ref_name }}-${{ runner.os }}
+          path: dist/ingress-annotations-scanner-*
+      - name: Criar a Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          tag_name: ${{ github.ref_name }}
+          files: dist/ingress-annotations-scanner-*
