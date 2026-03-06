@@ -1,8 +1,9 @@
 name: CI & Release
+permissions:
+  contents: write
 on:
   push:
     branches:
-      - dev
       - main
     tags:
       - 'v*'
