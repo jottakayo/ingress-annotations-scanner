@@ -120,10 +120,10 @@ Exibe todos os argumentos suportados.
 
 ### Buscar em namespaces específicos
 
-Use o argumento `--namespaces` seguido da lista desejada:
+Use o argumento `--namespace` seguido da lista desejada:
 
 ```bash
-./ingress-annotations-scanner-* --namespaces ns1 ns2 ns3
+./ingress-annotations-scanner-* --namespace ns1 ns2 ns3
 ```
 
 ---
@@ -166,4 +166,3 @@ O script gera um arquivo CSV(nome padrão: ingress_report.csv) com colunas:
 | --------- | ---- | ----- | -------- | -------------- | ----------- |
 
 >Esse arquivo pode ser aberto no Excel
-
