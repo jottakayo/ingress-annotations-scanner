@@ -1,9 +1,10 @@
-from subprocess import run, CalledProcessError
-from json import loads
+from subprocess import CalledProcessError, run
+from json import load, loads
 
-def executar_kubectl(namespace=None, all_namespaces=False): 
+
+def executar_kubectl(namespace=None, all_namespaces=False):
     comando = ["kubectl", "get", "ingress"]
-    
+
     if all_namespaces:
         comando.append("-A")
     elif namespace:
@@ -23,8 +24,8 @@ def executar_kubectl(namespace=None, all_namespaces=False):
         raise RuntimeError(f"Erro ao executar kubectl:\n{e.stderr}")
     return loads(resultado.stdout)
 
-def coletar_dados(namespaces=None, all_namespaces=False): 
-    dados_finais = {"items": []} 
+def coletar_dados(namespaces=None, all_namespaces=False):
+    dados_finais = {"items": []}
 
     if all_namespaces:
         return executar_kubectl(all_namespaces=True)
@@ -34,3 +35,20 @@ def coletar_dados(namespaces=None, all_namespaces=False):
         dados_finais["items"].extend(resultado.get("items", []))
 
     return dados_finais
+
+def ler_dados_de_arquivo(caminho_arquivo_entrada):
+    try:
+        with open(caminho_arquivo_entrada, "r", encoding="utf-8") as arquivo:
+            dados = load(arquivo)
+    except Exception as e:
+        raise RuntimeError(f"Erro ao ler JSON de entrada: {e}")
+
+    eh_dicionario = isinstance(dados, dict)
+    tem_chave_items = False
+    if eh_dicionario:
+        tem_chave_items = "items" in dados
+
+    if not eh_dicionario or not tem_chave_items:
+        raise RuntimeError("JSON inválido: esperado objeto com chave 'items'.")
+
+    return dados
